@@ -8,7 +8,7 @@ from testcase.base_testcase import BaseTestCase
 class Shopping_Cart(BaseTestCase):
 
     def test_Complete_shopping_cart(self):
-        #购物车模块内一系类操作
+        #登录购物车模块内一系类操作
         sp = ShoppingTrolleyPage(self.driver)
         sp.add_goods()
         sp.change_the_goods()
