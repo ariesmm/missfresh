@@ -4,53 +4,77 @@ from appium.webdriver.common.touch_action import TouchAction
 
 from page.base_page import BasePage
 
-'''九宫格解锁'''
 
-class Deblocking(BasePage):
+class DeblockingPage(BasePage):
+    '''九宫格解锁'''
     def __init__(self,driver):
         super().__init__(driver)
         self.driver=driver
 
-    def deblocking(self, all, direction):
-        # 获取窗口大小
+    def deblocking(self, pwd, direction):
+
+
+        '''适配分辨率滑动、解锁'''
+        lst = [
+            [196, 800], [360, 800], [520, 800],
+            [196, 960], [360, 960], [520, 960],
+            [196, 1125], [360, 1125], [520, 1125]
+        ]
         size = self.driver.get_window_size()
-        print('窗口大小:', size)
+        size_x = size['width']
+        size_y = size['height']
+        if direction == 'up':  # 从下往上
+            self.driver.swipe(size_x * 0.5, size_y * 0.9, size_x * 0.5, size_y * 0.3)
+            time.sleep(2)
+        elif direction == 'down':  # 从上往下
+            self.driver.swipe(size_x * 0.5, size_y * 0.3, size_x * 0.5, size_y * 0.9)
+        elif direction == 'left':  # 从右往左
+            self.driver.swipe(size_x * 0.9, size_y * 0.5, size_x * 0.3, size_y * 0.5)
+        elif direction == 'right':  # 从左往右
+            self.driver.swipe(size_x * 0.3, size_y * 0.5, size_x * 0.9, size_y * 0.5)
 
-        # 向上滑动
-        x1 = size['width'] * 0.1  # X左
-        x2 = size['width'] * 0.5  # X中
-        x3 = size['width'] * 0.9  # X右
-        y1 = size['height'] * 0.1  # Y上
-        y2 = size['height'] * 0.5  # Y中
-        y3 = size['height'] * 0.9  # Y下
+        if size_x == 720 and size_y == 1280:
+            lst = lst
+        else:
+            x_base = size_x / 720
+            y_base = size_y / 1280
+            for i in range(len(lst)):
+                lst[i][0] = lst[i][0] * x_base
+                lst[i][1] = lst[i][1] * y_base
 
-        if direction == 'up':  # 向上滑动
-            self.driver.swipe(x2, y3, x2, y1)
-        elif direction == 'down':  # 向下滑动
-            self.driver.swipe(x2, y1, x2, y3)
-        elif direction == 'left':  # 向左滑动
-            self.driver.swipe(x3, y2, x1, y2)
-        elif direction == 'right':  # 向右滑动
-            self.driver.swipe(x1, y2, x3, y2)
-
-        # 解锁
-        ta = TouchAction(self.driver)  # 实例化类
-        time.sleep(3)  # 等待3秒
-        # 九宫格
-        a = [[200, 800], [360, 800], [520, 800],
-             [195, 960], [360, 960], [520, 960],
-             [195, 1120], [360, 1120], [520, 1120]]
-
-        start = all[0] - 1  # 传参的第一个点
-        ta.press(x=a[start][0], y=a[start][1])  # 第一个点，按住
-        ta.wait(500)  # 操作过程中等待
-        for i in all[1:]:  # 其余六个点循环
-            ta.move_to(x=a[i - 1][0], y=a[i - 1][1])  # i为索引
+        ta = TouchAction(self.driver)
+        # 按住第一个点
+        ta.press(x=lst[pwd[0] - 1][0], y=lst[pwd[0] - 1][1])
+        ta.wait(500)
+        # 依次移动
+        for i in pwd[1:]:
+            ta.move_to(x=lst[i - 1][0], y=lst[i - 1][1])
             ta.wait(500)
 
         ta.release()  # 释放
         ta.perform()  # 提交
 
+    def swipe_to(self,driver, direction):
+        '''
+        窗口滑动
+        direction为方向参数
+        'up':#从下往上
+        'down':#从上往下
+        'left':#从右往左
+        'right':#从左往右
+        '''
+        windows_size = self.driver.get_window_size()
+        x = windows_size['width']
+        y = windows_size['height']
+        if direction == 'up':  # 从下往上
+            driver.swipe(x * 0.5, y * 0.9, x * 0.5, y * 0.3)
+            time.sleep(2)
+        elif direction == 'down':  # 从上往下
+            driver.swipe(x * 0.5, y * 0.3, x * 0.5, y * 0.9)
+        elif direction == 'left':  # 从右往左
+            driver.swipe(x * 0.9, y * 0.5, x * 0.3, y * 0.5)
+        elif direction == 'right':  # 从左往右
+            driver.swipe(x * 0.3, y * 0.5, x * 0.9, y * 0.5)
 
 
 
