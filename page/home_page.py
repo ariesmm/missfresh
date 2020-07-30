@@ -57,27 +57,29 @@ class HomePage(BasePage):
         time.sleep(3)
 
     def ele_home_search_cart_result(self):
+        '''结果验证'''
         time.sleep(3)
         cart_result=self.driver.find_element(By.XPATH,'//android.widget.TextView[@resource-id=\"cn.missfresh.application:id/tv_location\"]').text
         return cart_result
 
     def homepage(self,keywords):
+        '''首页搜索并加入购物车'''
         time.sleep(5)
-        d=DeblockingPage(self.driver)
-        for i in range(5):
+        d=DeblockingPage(self.driver) #实例化滑动
+        for i in range(5): #滑动5次
             d.swipe_to_up()
 
-        self.ele_home_search()
-        self.ele_home_search_text(keywords)
-        self.ele_home_search_button()
-        self.ele_home_search_goods()
-
-        time.sleep(3)
-        for i in range(5):
+        self.ele_home_search() #首页搜索框
+        self.ele_home_search_text(keywords) #进入搜索页面，输入关键字
+        self.ele_home_search_button() #点击搜索按钮
+        time.sleep(2)
+        self.ele_home_search_goods() #点击第一个商品
+        time.sleep(3) #停留3秒
+        for i in range(5):  #进入商品详情页面，滑动5次
             d.swipe_to_up()
-        self.ele_home_search_add_to_cart()
-        self.ele_home_search_cart()
-        cart_result=self.ele_home_search_cart_result()
-        return cart_result
+        self.ele_home_search_add_to_cart() #加入购物车
+        self.ele_home_search_cart() #进入购物车
+        cart_result=self.ele_home_search_cart_result() #断言
+        return cart_result #返回结果
 
 
