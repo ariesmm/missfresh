@@ -9,6 +9,9 @@ class Shopping_Mania(BaseTestCase):
         #登录购物流程
         lp = ShoppingPage(self.driver)
         lp.shopping_mania('面包')
+        balance = lp.ele_balance_result()
+        self.assertIn('订单填写',balance)
+        print('进入订单支付页面')
 
 
 if __name__ == '__main__':

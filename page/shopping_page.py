@@ -14,7 +14,7 @@ class ShoppingPage():
         self.loc_ele_click_search = (By.ID,'cn.missfresh.application:id/tv_search_text')
         self.loc_ele_input = (By.XPATH,'//android.widget.EditText[@resource-id="cn.missfresh.application:id/search_view"]')
         self.loc_ele_pay = (By.XPATH,'//android.widget.TextView[@resource-id="cn.missfresh.application:id/tv_confirm"]')
-
+        self.loc_ele_balance_result = (By.XPATH,'//android.widget.TextView[@resource-id="cn.missfresh.application:id/tv_location"]')
 
     #点击搜索框
     def ele_click_search(self):
@@ -38,6 +38,11 @@ class ShoppingPage():
         self.driver.tap([(625,1240)])
         time.sleep(2)
 
+    #断言是否进入订单页面
+    def ele_balance_result(self):
+        balance_result=self.driver.find_element(*self.loc_ele_balance_result).text
+        return balance_result
+
     #立即支付
     def ele_pay(self):
         self.driver.find_element(*self.loc_ele_pay).click()
@@ -49,4 +54,6 @@ class ShoppingPage():
         self.ele_input(tradename) #输入数据并确定
         self.ele_product_details() #进入商品详情
         self.ele_buy() #立即购买
+        balance_result = self.ele_balance_result()
         self.ele_pay() #立即支付
+        return balance_result
