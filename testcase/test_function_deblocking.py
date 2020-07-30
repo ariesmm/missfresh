@@ -1,10 +1,7 @@
 import unittest
 from page.deblocking_page import DeblockingPage
 
-
-
 from testcase.base_testcase import BaseTestCase
-
 
 class DeblockingTestCase(BaseTestCase):
     def test_deblocking(self):
