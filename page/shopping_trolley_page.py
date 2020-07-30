@@ -12,6 +12,8 @@ class ShoppingTrolleyPage():
         self.loc_ele_look_cart = (By.XPATH,'//android.widget.ImageView[@resource-id="cn.missfresh.application:id/iv_cart_icon"]')
         self.loc_ele_changenum_add = (By.ID, 'cn.missfresh.application:id/iv_product_add')
         self.loc_ele_changenum_cutdown = (By.ID, 'cn.missfresh.application:id/iv_product_sub')
+        self.loc_ele_close_an_account = (By.XPATH,'//android.widget.TextView[@resource-id="cn.missfresh.application:id/tv_checkout"]')
+        self.loc_ele_back = (By.XPATH,'//android.widget.TextView[@resource-id="cn.missfresh.application:id/tv_back"]')
         self.loc_ele_delete_commodity = (By.XPATH,
                             '//android.widget.TextView[@resource-id="cn.missfresh.application:id/tv_delete"]')
         self.loc_ele_delete_confirm = (By.XPATH,
@@ -57,6 +59,16 @@ class ShoppingTrolleyPage():
         self.driver.find_element(*self.loc_ele_changenum_cutdown).click()
         time.sleep(2)
 
+    #商品结算
+    def ele_close_an_account(self):
+        self.driver.find_element(*self.loc_ele_close_an_account).click()
+        time.sleep(2)
+
+    #返回购物车
+    def ele_back(self):
+        self.driver.find_element(*self.loc_ele_back).click()
+        time.sleep(1)
+
     #购物车删除商品
     def ele_delete_commodity(self):
         self.driver.find_element(*self.loc_ele_delete_commodity).click()
@@ -78,6 +90,10 @@ class ShoppingTrolleyPage():
         self.ele_look_cart() #进入购物车
         self.ele_changenum_add() #购物车商品数量增加
         self.ele_changenum_cutdown() #减少
+
+    def settlement_return(self):
+        self.ele_close_an_account() #去结算
+        self.ele_back() #返回购物车
 
     def remove_goods(self):
         self.ele_delete_commodity() #删除所选择的商品
