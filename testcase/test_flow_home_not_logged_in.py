@@ -6,8 +6,8 @@ from page.shopping_trolley_page import ShoppingTrolleyPage
 from testcase.base_testcase import BaseTestCase
 
 
-class HomeTestCase(BaseTestCase):
-    def testhome(self):
+class HomeNotLoggedInTestCase(BaseTestCase):
+    def test_flow_home_not_gogged_in(self):
         '''首页搜索并加入购物车'''
         h=HomePage(self.driver)#实例化
         cart_result=h.homepage('面包')#搜索框传参
