@@ -2,17 +2,12 @@ import time
 
 from appium.webdriver.common.touch_action import TouchAction
 
-from page.base_page import BasePage
-
-
-class DeblockingPage(BasePage):
+class DeblockingPage():
     '''九宫格解锁'''
     def __init__(self,driver):
-        super().__init__(driver)
         self.driver=driver
 
-    def deblocking(self, pwd, direction):
-
+    def deblocking(self, pwd):
 
         '''适配分辨率滑动、解锁'''
         lst = [
@@ -23,16 +18,8 @@ class DeblockingPage(BasePage):
         size = self.driver.get_window_size()
         size_x = size['width']
         size_y = size['height']
-        if direction == 'up':  # 从下往上
-            self.driver.swipe(size_x * 0.5, size_y * 0.9, size_x * 0.5, size_y * 0.3)
-            time.sleep(2)
-        elif direction == 'down':  # 从上往下
-            self.driver.swipe(size_x * 0.5, size_y * 0.3, size_x * 0.5, size_y * 0.9)
-        elif direction == 'left':  # 从右往左
-            self.driver.swipe(size_x * 0.9, size_y * 0.5, size_x * 0.3, size_y * 0.5)
-        elif direction == 'right':  # 从左往右
-            self.driver.swipe(size_x * 0.3, size_y * 0.5, size_x * 0.9, size_y * 0.5)
-
+        self.driver.swipe(size_x * 0.5, size_y * 0.9, size_x * 0.5, size_y * 0.3)
+        time.sleep(2)
         if size_x == 720 and size_y == 1280:
             lst = lst
         else:
@@ -54,27 +41,47 @@ class DeblockingPage(BasePage):
         ta.release()  # 释放
         ta.perform()  # 提交
 
-    def swipe_to(self,driver, direction):
+    def swipe_to_up(self, driver):
         '''
         窗口滑动
-        direction为方向参数
         'up':#从下往上
-        'down':#从上往下
-        'left':#从右往左
-        'right':#从左往右
         '''
         windows_size = self.driver.get_window_size()
         x = windows_size['width']
         y = windows_size['height']
-        if direction == 'up':  # 从下往上
-            driver.swipe(x * 0.5, y * 0.9, x * 0.5, y * 0.3)
-            time.sleep(2)
-        elif direction == 'down':  # 从上往下
-            driver.swipe(x * 0.5, y * 0.3, x * 0.5, y * 0.9)
-        elif direction == 'left':  # 从右往左
-            driver.swipe(x * 0.9, y * 0.5, x * 0.3, y * 0.5)
-        elif direction == 'right':  # 从左往右
-            driver.swipe(x * 0.3, y * 0.5, x * 0.9, y * 0.5)
+        driver.swipe(x * 0.5, y * 0.9, x * 0.5, y * 0.3)
+        time.sleep(1)
 
+    def swipe_to_down(self, driver):
+        '''
+        窗口滑动
+        'down':#从上往下
+        '''
+        windows_size = self.driver.get_window_size()
+        x = windows_size['width']
+        y = windows_size['height']
+        driver.swipe(x * 0.5, y * 0.3, x * 0.5, y * 0.9)
+        time.sleep(1)
 
+    def swipe_to_left(self, driver):
+        '''
+        窗口滑动
+        'left':#从右往左
+        '''
+        windows_size = self.driver.get_window_size()
+        x = windows_size['width']
+        y = windows_size['height']
+        driver.swipe(x * 0.9, y * 0.5, x * 0.3, y * 0.5)
+        time.sleep(1)
+
+    def swipe_to_right(self, driver):
+        '''
+        窗口滑动
+        'down':#从上往下
+        '''
+        windows_size = self.driver.get_window_size()
+        x = windows_size['width']
+        y = windows_size['height']
+        driver.swipe(x * 0.3, y * 0.5, x * 0.9, y * 0.5)
+        time.sleep(1)
 
