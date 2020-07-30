@@ -41,7 +41,7 @@ class DeblockingPage():
         ta.release()  # 释放
         ta.perform()  # 提交
 
-    def swipe_to_up(self, driver):
+    def swipe_to_up(self):
         '''
         窗口滑动
         'up':#从下往上
@@ -49,10 +49,10 @@ class DeblockingPage():
         windows_size = self.driver.get_window_size()
         x = windows_size['width']
         y = windows_size['height']
-        driver.swipe(x * 0.5, y * 0.9, x * 0.5, y * 0.3)
+        self.driver.swipe(x * 0.5, y * 0.8, x * 0.5, y * 0.3)
         time.sleep(1)
 
-    def swipe_to_down(self, driver):
+    def swipe_to_down(self):
         '''
         窗口滑动
         'down':#从上往下
@@ -60,10 +60,10 @@ class DeblockingPage():
         windows_size = self.driver.get_window_size()
         x = windows_size['width']
         y = windows_size['height']
-        driver.swipe(x * 0.5, y * 0.3, x * 0.5, y * 0.9)
+        self.driver.swipe(x * 0.5, y * 0.3, x * 0.5, y * 0.8)
         time.sleep(1)
 
-    def swipe_to_left(self, driver):
+    def swipe_to_left(self):
         '''
         窗口滑动
         'left':#从右往左
@@ -71,10 +71,10 @@ class DeblockingPage():
         windows_size = self.driver.get_window_size()
         x = windows_size['width']
         y = windows_size['height']
-        driver.swipe(x * 0.9, y * 0.5, x * 0.3, y * 0.5)
+        self.driver.swipe(x * 0.8, y * 0.5, x * 0.3, y * 0.5)
         time.sleep(1)
 
-    def swipe_to_right(self, driver):
+    def swipe_to_right(self):
         '''
         窗口滑动
         'down':#从上往下
@@ -82,6 +82,6 @@ class DeblockingPage():
         windows_size = self.driver.get_window_size()
         x = windows_size['width']
         y = windows_size['height']
-        driver.swipe(x * 0.3, y * 0.5, x * 0.9, y * 0.5)
+        self.driver.swipe(x * 0.3, y * 0.5, x * 0.8, y * 0.5)
         time.sleep(1)
 
